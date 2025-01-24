@@ -1,5 +1,6 @@
 # ScientificCalculator
-
+-   I have tried to implement this calc with the specified operations without using any direct or default functions like eval.
+-   I have used the postfix evaluation method using stack to evaluate the expressions given by user. 
 
 ### Operations
 This Calc enables you to do the basic operations like: +, -, *, /, 1/x, x^2, modulo (%)
