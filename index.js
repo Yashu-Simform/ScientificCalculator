@@ -269,12 +269,6 @@ period.addEventListener('click', function(){
                 calc.set(txt)
             }
             
-            // temp = temp.slice(0,temp.length-1) + this.value
-
-            // if(periodInsert(txt.slice(0,txt.length-1))){
-            //     txt = txt.slice(0,txt.length-1) + this.value
-            //     calc.set(txt)
-            // }
         }
     
         
@@ -399,7 +393,8 @@ function doSquare(){
 }
 
 function storeMemo(){
-    calc.setMemo(calc.get())
+    const ans = calc.evaluate()
+    calc.setMemo(ans)
     // memo.textContent = (calc.getMemo()).toString()
     memoField.style.display = 'block'
 }
@@ -414,11 +409,13 @@ function clearMemo(){
 }
 
 function addToMemo(){
-    calc.addToMemo(calc.get())
+    const ans = calc.evaluate()
+    calc.addToMemo(ans)
 }
 
 function minusToMemo(){
-    calc.minusToMemo()
+    const ans = calc.evaluate()
+    calc.minusToMemo(ans)
 }
 
 function showMemoBtn(){
