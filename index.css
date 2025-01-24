@@ -8,15 +8,23 @@ html, body{
 }
 
 body{
-    max-width: 600px;
+    /* max-width: 600px;
     min-height: 600px;
-    max-height: 1024px;
+    max-height: 1024px; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #f5f6f6;
 }
 
 .root{
-    width: 100%;
-    min-height: 100%;
+    max-width: 600px;
+    min-height: 600px;
+    max-height: 1024px;
+    /* width: 100%;
+    min-height: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,11 +48,14 @@ body{
     min-height: 100px;
     height: 20%;
     max-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #disfield{
     width: 100%;
-    height: 100%;
+    height: 85%;
     border: none;
     color: black;
     font-size: 38px;
@@ -59,6 +70,29 @@ body{
     border-color: transparent;
 }
 
+
+.memory{
+    color: grey;
+    /* min-width: %; */
+    text-align: right;
+    font-size: 12px;
+}
+
+.memo-legend{
+    color: grey;
+    font-size: 14px;
+}
+
+.memo-field{
+    padding: 3px 10px;
+    margin: 0;
+    border-color: #fcfcfc;
+    /* color: grey; */
+    min-height: 12%;
+    display: none;
+    text-align: right;
+    border-radius: 4px;
+}
 
 /* Functions */
 .functions{

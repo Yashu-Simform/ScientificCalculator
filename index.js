@@ -18,6 +18,9 @@ const mr = document.getElementById('mr')
 const madd = document.getElementById('madd')
 const msubt = document.getElementById('msubt')
 const ms = document.getElementById('ms')
+const memoField = document.getElementById('memoField')
+const memo = document.getElementById('memo')
+const showMemo = document.getElementById('showMemo')
 
 const optDict = {
     '+': 1,
@@ -64,22 +67,27 @@ class Calculator{
 
     setMemo(val){
         this.memory = (val).toString()
+        memo.textContent = (this.memory).toString()
     }
 
     addToMemo(val){
         this.memory = (parseFloat(this.memory) + parseFloat(val)).toString()
+        memo.textContent = (this.memory).toString()
     }
 
     minusToMemo(val){
         this.memory = (parseFloat(this.memory) - parseFloat(val)).toString()
+        memo.textContent = (this.memory).toString()
     }
 
     clearMemo(){
         this.memory = ''
+        memo.textContent = (this.memory).toString()
     }
 
     readMemo(){
         this.distext = this.memory
+        disp.value = this.distext
     }
 
     append(val){
@@ -250,16 +258,26 @@ period.addEventListener('click', function(){
         const text = calc.get()
         const temp = text.slice(text.length-1) 
         const res = temp in numsDict
-    
+
         if(res){
             // distext = distext + this.value
-            calc.append(this.value)
+            if(periodInsert(text)) calc.append(this.value);
         }else{
-            const temp = calc.get()
-            temp = temp.slice(0,temp.length-1) + this.value
+            if(periodInsert(text)){
+                let txt = calc.get()
+                txt = txt + '0.'
+                calc.set(txt)
+            }
+            
+            // temp = temp.slice(0,temp.length-1) + this.value
 
-            calc.set(temp)
+            // if(periodInsert(txt.slice(0,txt.length-1))){
+            //     txt = txt.slice(0,txt.length-1) + this.value
+            //     calc.set(txt)
+            // }
         }
+    
+        
     }
 })
 
@@ -277,8 +295,12 @@ funs.addEventListener('click',
 clear_all.addEventListener('click', clearAll)
 clear_last.addEventListener('click', clearLast)
 
-
-
+ms.addEventListener('click', storeMemo)
+mr.addEventListener('click', readMemo)
+mc.addEventListener('click', clearMemo)
+madd.addEventListener('click',addToMemo)
+msubt.addEventListener('click', minusToMemo)
+showMemo.addEventListener('click', showMemoBtn)
 
 // Logic implementation
 
@@ -299,10 +321,47 @@ function opValidate(){
     if(res){
         // distext = distext + this.value
         calc.append(this.value)
-    }else{
+    }else if(temp == '.'){
+        calc.append('0')
+        calc.append(this.value)
+    }
+    else{
         calc.clearLast()
         calc.append(this.value)
         // distext = distext.slice(0,distext.length-1) + this.value
+    }
+}
+
+function periodInsert(s){
+    let flag = false
+    for(let i = s.length-1;i>=0;i--){
+        if(s.at(i) == '.'){
+            //Do not able to insert 
+            alert('Would not be a valid expression!')
+            return false;
+        }
+
+        if(!(s.at(i) in numsDict)) return true;
+        // else if(!(s.at(i) in numsDict)){
+        //     flag = false
+        // }
+    }
+
+    return true
+}
+
+function validPeriod(s){
+    let flag = false
+    for(let i = 0;i<s.length;i++){
+        if(s.at(i) == '.'){
+            if(!flag) flag = true;
+            else{
+                alert('Invalid Expression!')
+            }
+        }
+        else if(!(s.at(i) in numsDict)){
+            flag = false
+        }
     }
 }
 
@@ -339,7 +398,33 @@ function doSquare(){
     calc.set(ans)
 }
 
+function storeMemo(){
+    calc.setMemo(calc.get())
+    // memo.textContent = (calc.getMemo()).toString()
+    memoField.style.display = 'block'
+}
 
+function readMemo(){
+    calc.readMemo()
+}
+
+function clearMemo(){
+    calc.clearMemo()
+    memoField.style.display = 'none'
+}
+
+function addToMemo(){
+    calc.addToMemo(calc.get())
+}
+
+function minusToMemo(){
+    calc.minusToMemo()
+}
+
+function showMemoBtn(){
+    if(memoField.style.display == 'none') memoField.style.display = 'block';
+    else memoField.style.display = 'none';
+}
 
 function calculate(){
     const ans = calc.evaluate();
